@@ -1,0 +1,159 @@
+/* MixinBank
+ *
+ * A list of some useful, reusable mixins
+ *
+ */
+
+
+
+
+// TABLE OF CONTENTS
+// -----------------------
+//
+// 1 - Media Queries
+// 2 - Hide and Show Element with Transition
+// 3 - Center Element (with position: absolute)
+// 4 - Fullscreen Background Image
+// 5 - Full Width/Height and Centered Image
+//
+//
+
+
+
+
+
+// 1 - Media Queries
+// ------------------
+// Media query mixin with predefined breakpoints
+
+
+// Define breakpoints
+$breakpoint-small: 600px;
+$breakpoint-med-small: 960px;
+$breakpoint-med: 1175px;
+
+@mixin screen($size, $type: max, $pixels: 600) {
+
+  @if $size == 'small' {
+    @media screen and ($type + -width: $breakpoint-small) {
+        @content;
+    }
+  }
+
+  @else if $size == 'med-small' {
+    @media screen and ($type + -width: $breakpoint-med-small) {
+        @content;
+    }
+  }
+
+  @else if $size == 'med' {
+    @media screen and ($type + -width: $breakpoint-med) {
+        @content;
+    }
+  }
+
+ @else if $size == 'large' {
+    @media screen and ($type + -width: $breakpoint-med) {
+        @content;
+    }
+  }
+
+  @else if $size == 'custom' {
+    @media screen and ($type + -width: $pixels + px) {
+     @content;
+    }
+  }
+
+  @else {
+    @content;
+  }
+
+}
+
+
+
+
+// 2 - Hide and Show Element with Transition
+// -------------------------------------------
+//
+
+@mixin fadeElement($type) {
+  @if $type == 'hide' {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s;
+  }
+
+  @else if $type == 'show' {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 1s, opacity 1s;
+  }
+}
+
+
+
+
+
+
+// 3 - Center Element (with position: absolute)
+// -------------------------------------------
+// Center an element vertically/horizontally/both using the
+// "position: absolute" method
+// NOTE: Parent element must be positioned
+
+@mixin center($position) {
+  position: absolute;
+
+  @if $position == 'vertical' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  @else if $position == 'horizontal' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  }
+
+  @else if $position == 'both' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+}
+
+
+
+// 4 - Fullscreen Background Image
+// --------------------------------
+// 
+
+@mixin bg-cover($url) {
+  background: url($url) no-repeat center center fixed;
+  background-size: cover;
+}
+
+
+
+// 5 - Full Width/Height and Centered Image
+// -------------------------------------------
+// Position an image within it's parent element so that it 
+// takes up the full height and width of the parent element, and
+// is positioned with its center in the middle
+
+@mixin img-cover {
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+      
