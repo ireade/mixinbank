@@ -33,7 +33,7 @@ $breakpoints: (
     $width: $size;
   }
   @else {
-    @media screen and ($type + -width: $breakpoint-small) {
+    @media screen and ($type + -width: $width) {
         @content;
     }
   }
